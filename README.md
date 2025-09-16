@@ -1,2 +1,2 @@
 # seg-ads
-Arquivos do curso de análise de sistemas
+Arquivos do curso de análise de sistemas.
