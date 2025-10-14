@@ -17,7 +17,7 @@ class CLIENTE(db.Model):
 
 # cRud - Read (ler) 
 @app.route('/')
-def index():
+def index():                         
     clientes = CLIENTE.query.all()
     return render_template('index.html', clientes=clientes)
 
