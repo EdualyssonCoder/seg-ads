@@ -1,6 +1,6 @@
-from flask import Flask, render_template,  request, redirect
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask import Flask, render_template, request, redirect
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///petshop_db.db'
@@ -8,6 +8,7 @@ db = SQLAlchemy(app)
 
 # Definição do Modelo
 class CLIENTE(db.Model):
+    """Cria a tabela de clientes"""
     id_cliente = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
     telefone = db.Column(db.String(15), unique=True, nullable=False)
@@ -15,11 +16,12 @@ class CLIENTE(db.Model):
     cpf = db.Column(db.String(14), unique=True)
     data_cadastro = db.Column(db.DateTime(), default=datetime.now)
 
-# cRud - Read (ler) 
+# cRud - Read (ler)
 @app.route('/')
-def index():                         
+def index():
     clientes = CLIENTE.query.all()
-    return render_template('index.html', clientes=clientes)
+    erro = request.args.get('erro')
+    return render_template('index.html', clientes=clientes, erro=erro)
 
 # Crud - Create (criar)
 @app.route('/create', methods=['POST'])
@@ -35,7 +37,7 @@ def create_cliente():
     existe_cliente_cpf = CLIENTE.query.filter_by(cpf=cpf).first()
 
     if (existe_cliente_telefone or existe_cliente_email or existe_cliente_cpf):
-        return 'ERRO: Cliente já Cadastrado!', 400
+        return redirect('/?erro=Cliente já cadastrado')
 
     novo_cliente = CLIENTE(nome=nome, telefone=telefone, email=email, cpf=cpf)
     db.session.add(novo_cliente)

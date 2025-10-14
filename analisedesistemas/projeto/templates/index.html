@@ -8,6 +8,11 @@
 <body>
     <h1>PetShop Au Au</h1>
     <h2>Adicionar Novo Cliente</h2>
+
+    {% if erro %}
+        <p style="color:red;">{{ erro }}</p>
+    {% endif %}
+
     <ul style="list-style: none;">
         <li>
             <form action="/create" method="POST">
@@ -19,6 +24,7 @@
             </form>
         </li>
     </ul>
+
     <h2>Clientes Cadastrados</h2>
     <ul style="list-style: none;">
         {% for cliente in clientes %}
