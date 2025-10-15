@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetShop</title>
+    <title>Manu Modas</title>
 </head>
 <body>
-    <h1>PetShop Au Au</h1>
+    <h1>Manu Modas</h1>
     <h2>Adicionar Novo Cliente</h2>
 
     {% if erro %}
@@ -30,9 +30,9 @@
         {% for cliente in clientes %}
             <li>
                 <form action="/update/{{ cliente.id_cliente }}" method="POST" style="display: inline;">
-                    <input type="text" name="nome" value="{{ cliente.nome }}">
-                    <input type="text" name="telefone" value="{{ cliente.telefone }}">
-                    <input type="text" name="email" value="{{ cliente.email }}">
+                    <input type="text" name="cpf" value="{{ cliente.cpf }}">
+                    <input type="text" name="numero_celular" value="{{ cliente.numero_celular }}">
+                    <input type="text" name="" value="{{ cliente.email }}">
                     <input type="text" name="cpf" value="{{ cliente.cpf }}">
                     <button type="submit">Atualizar</button>
                 </form>
