@@ -1,4 +1,8 @@
-# Documentação do Projeto: Sistema de Cadastro para Manu Modas (Requisitos Funcionais e Não Funcionais)
+# Documentação do Projeto: Sistema de Cadastro para Manu Modas (Entrevista com o Cliente eRequisitos Funcionais e Não Funcionais)
+
+### Entrevista com o Cliente
+
+Cliente exigiu um sistema com possibilidade de cadastrar vários dados em um banco de dados, possuindo tabelas com seus respectivos registros, como: clientes, produtos, serviços, vendas e um sistema de login para o usuário principal.
 
 ### Requisitos Funcionais (RF)
 
