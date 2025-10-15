@@ -1,47 +1,166 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manu Modas</title>
+    <title>Cadastro de Clientes - Petshop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        main {
+            width: 90%;
+            max-width: 850px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+        }
+
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+        form {
+            margin-bottom: 2rem;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f1f1f1;
+        }
+
+        .erro {
+            color: red;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .acoes form {
+            display: inline;
+        }
+
+        .acoes button {
+            background: #28a745;
+            margin-right: 5px;
+        }
+
+        .acoes button.delete {
+            background: #dc3545;
+        }
+
+        .acoes button:hover {
+            opacity: 0.9;
+        }
+    </style>
 </head>
 <body>
-    <h1>Manu Modas</h1>
-    <h2>Adicionar Novo Cliente</h2>
+    <header>
+        <h1>Cadastro de Clientes - Petshop</h1>
+    </header>
 
-    {% if erro %}
-        <p style="color:red;">{{ erro }}</p>
-    {% endif %}
+    <main>
+        {% if erro %}
+        <div class="erro">{{ erro }}</div>
+        {% endif %}
 
-    <ul style="list-style: none;">
-        <li>
-            <form action="/create" method="POST">
-                <input type="text" name="nome" placeholder="Nome" required>
-                <input type="text" name="telefone" placeholder="Telefone" required>
-                <input type="text" name="email" placeholder="E-mail">
-                <input type="text" name="cpf" placeholder="CPF">
-                <button type="submit">Cadastrar Cliente</button>
-            </form>
-        </li>
-    </ul>
+        <h2>Novo Cliente</h2>
+        <form action="/create" method="POST">
+            <input type="text" name="nome" placeholder="Nome completo" required>
+            <input type="text" name="telefone" placeholder="Telefone">
+            <input type="text" name="endereço" placeholder="Endereço">
+            <input type="text" name="cpf" placeholder="CPF">
+            <input type="number" name="cep" placeholder="CEP">
+            <button type="submit">Cadastrar</button>
+        </form>
 
-    <h2>Clientes Cadastrados</h2>
-    <ul style="list-style: none;">
-        {% for cliente in clientes %}
-            <li>
-                <form action="/update/{{ cliente.id_cliente }}" method="POST" style="display: inline;">
-                    <input type="text" name="cpf" value="{{ cliente.cpf }}">
-                    <input type="text" name="numero_celular" value="{{ cliente.numero_celular }}">
-                    <input type="text" name="" value="{{ cliente.email }}">
-                    <input type="text" name="cpf" value="{{ cliente.cpf }}">
-                    <button type="submit">Atualizar</button>
-                </form>
+        <h2>Clientes Cadastrados</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Endereço</th>
+                <th>CPF</th>
+                <th>CEP</th>
+                <th>Ações</th>
+            </tr>
+            {% for cliente in clientes %}
+            <tr>
+                <td>{{ cliente.id_cliente }}</td>
+                <td>{{ cliente.nome }}</td>
+                <td>{{ cliente.telefone }}</td>
+                <td>{{ cliente.endereço }}</td>
+                <td>{{ cliente.cpf }}</td>
+                <td>{{ cliente.cep }}</td>
+                <td class="acoes">
+                    <!-- Atualizar -->
+                    <form action="/update/{{ cliente.id_cliente }}" method="POST">
+                        <input type="text" name="nome" value="{{ cliente.nome }}" required>
+                        <input type="text" name="telefone" value="{{ cliente.telefone }}">
+                        <input type="text" name="endereço" value="{{ cliente.endereço }}">
+                        <input type="text" name="cpf" value="{{ cliente.cpf }}">
+                        <input type="number" name="cep" value="{{ cliente.cep }}">
+                        <button type="submit">Atualizar</button>
+                    </form>
 
-                <form action="/delete/{{ cliente.id_cliente }}" method="POST" style="display: inline;">
-                    <button type="submit">Excluir</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>    
+                    <!-- Excluir -->
+                    <form action="/delete/{{ cliente.id_cliente }}" method="POST">
+                        <button type="submit" class="delete">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </main>
 </body>
 </html>
