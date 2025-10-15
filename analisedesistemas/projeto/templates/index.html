@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manu Modas</title>
+</head>
+<body>
+    <h1>Manu Modas</h1>
+    <h2>Adicionar Novo Cliente</h2>
+
+    {% if erro %}
+        <p style="color:red;">{{ erro }}</p>
+    {% endif %}
+
+    <ul style="list-style: none;">
+        <li>
+            <form action="/create" method="POST">
+                <input type="text" name="nome" placeholder="Nome" required>
+                <input type="text" name="telefone" placeholder="Telefone" required>
+                <input type="text" name="email" placeholder="E-mail">
+                <input type="text" name="cpf" placeholder="CPF">
+                <button type="submit">Cadastrar Cliente</button>
+            </form>
+        </li>
+    </ul>
+
+    <h2>Clientes Cadastrados</h2>
+    <ul style="list-style: none;">
+        {% for cliente in clientes %}
+            <li>
+                <form action="/update/{{ cliente.id_cliente }}" method="POST" style="display: inline;">
+                    <input type="text" name="cpf" value="{{ cliente.cpf }}">
+                    <input type="text" name="numero_celular" value="{{ cliente.numero_celular }}">
+                    <input type="text" name="" value="{{ cliente.email }}">
+                    <input type="text" name="cpf" value="{{ cliente.cpf }}">
+                    <button type="submit">Atualizar</button>
+                </form>
+
+                <form action="/delete/{{ cliente.id_cliente }}" method="POST" style="display: inline;">
+                    <button type="submit">Excluir</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>    
+</body>
+</html>

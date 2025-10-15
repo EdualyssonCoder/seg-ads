@@ -1,2 +1,2 @@
 # seg-ads
-Arquivos do curso de análise de sistemas.
+Neste repositório você encontrará vários arquivos relacionados ao projeto, como: banco de dados, códigos que carregam a página web de cadastro e documentações do diagrama e dos requisitos gerais do projeto.
