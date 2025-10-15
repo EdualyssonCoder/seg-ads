@@ -20,7 +20,7 @@
 
         main {
             width: 90%;
-            max-width: 800px;
+            max-width: 850px;
             margin: 2rem auto;
             background: white;
             border-radius: 10px;
@@ -38,7 +38,7 @@
             margin-bottom: 2rem;
         }
 
-        input[type="text"], input[type="email"] {
+        input[type="text"], input[type="number"] {
             width: 100%;
             padding: 10px;
             margin: 5px 0 15px;
@@ -116,9 +116,10 @@
         <h2>Novo Cliente</h2>
         <form action="/create" method="POST">
             <input type="text" name="nome" placeholder="Nome completo" required>
-            <input type="text" name="telefone" placeholder="Telefone" required>
-            <input type="email" name="email" placeholder="E-mail">
+            <input type="text" name="telefone" placeholder="Telefone">
+            <input type="text" name="endereço" placeholder="Endereço">
             <input type="text" name="cpf" placeholder="CPF">
+            <input type="number" name="cep" placeholder="CEP">
             <button type="submit">Cadastrar</button>
         </form>
 
@@ -128,8 +129,9 @@
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Telefone</th>
-                <th>Email</th>
+                <th>Endereço</th>
                 <th>CPF</th>
+                <th>CEP</th>
                 <th>Ações</th>
             </tr>
             {% for cliente in clientes %}
@@ -137,15 +139,17 @@
                 <td>{{ cliente.id_cliente }}</td>
                 <td>{{ cliente.nome }}</td>
                 <td>{{ cliente.telefone }}</td>
-                <td>{{ cliente.email }}</td>
+                <td>{{ cliente.endereço }}</td>
                 <td>{{ cliente.cpf }}</td>
+                <td>{{ cliente.cep }}</td>
                 <td class="acoes">
                     <!-- Atualizar -->
                     <form action="/update/{{ cliente.id_cliente }}" method="POST">
                         <input type="text" name="nome" value="{{ cliente.nome }}" required>
-                        <input type="text" name="telefone" value="{{ cliente.telefone }}" required>
-                        <input type="email" name="email" value="{{ cliente.email }}">
+                        <input type="text" name="telefone" value="{{ cliente.telefone }}">
+                        <input type="text" name="endereço" value="{{ cliente.endereço }}">
                         <input type="text" name="cpf" value="{{ cliente.cpf }}">
+                        <input type="number" name="cep" value="{{ cliente.cep }}">
                         <button type="submit">Atualizar</button>
                     </form>
 

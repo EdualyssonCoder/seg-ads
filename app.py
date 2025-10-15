@@ -11,9 +11,10 @@ class CLIENTE(db.Model):
     """Cria a tabela de clientes"""
     id_cliente = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
-    telefone = db.Column(db.String(15), unique=True, nullable=False)
-    email = db.Column(db.String(100), unique=True)
+    telefone = db.Column(db.String(15), unique=True)
+    endereço = db.Column(db.String(100))
     cpf = db.Column(db.String(14), unique=True)
+    cep = db.Column(db.Integer)
     data_cadastro = db.Column(db.DateTime(), default=datetime.now)
 
 # cRud - Read (ler)
@@ -28,18 +29,18 @@ def index():
 def create_cliente():
     nome = request.form['nome']
     telefone = request.form['telefone']
-    email = request.form['email']
+    endereço = request.form['endereço']
     cpf = request.form['cpf']
+    cep = request.form['cep']
 
-    # Valida se o cliente já está cadastrado
+    # Valida duplicados
     existe_cliente_telefone = CLIENTE.query.filter_by(telefone=telefone).first()
-    existe_cliente_email = CLIENTE.query.filter_by(email=email).first()
     existe_cliente_cpf = CLIENTE.query.filter_by(cpf=cpf).first()
 
-    if (existe_cliente_telefone or existe_cliente_email or existe_cliente_cpf):
+    if existe_cliente_telefone or existe_cliente_cpf:
         return redirect('/?erro=Cliente já cadastrado')
 
-    novo_cliente = CLIENTE(nome=nome, telefone=telefone, email=email, cpf=cpf)
+    novo_cliente = CLIENTE(nome=nome, telefone=telefone, endereço=endereço, cpf=cpf, cep=cep)
     db.session.add(novo_cliente)
     db.session.commit()
 
@@ -61,8 +62,9 @@ def update_cliente(id_cliente):
     if cliente:
         cliente.nome = request.form['nome']
         cliente.telefone = request.form['telefone']
-        cliente.email = request.form['email']
+        cliente.endereço = request.form['endereço']
         cliente.cpf = request.form['cpf']
+        cliente.cep = request.form['cep']
         db.session.commit()
     return redirect('/')
 
