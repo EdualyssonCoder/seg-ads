@@ -1,4 +1,4 @@
-# Documentação do Projeto: Sistema de Cadastro para Manu Modas (Entrevista com o Cliente eRequisitos Funcionais e Não Funcionais)
+# Documentação do Projeto: Sistema de Cadastro para Manu Modas (Entrevista com o Cliente e Requisitos Funcionais e Não Funcionais)
 
 ### Entrevista com o Cliente
 
